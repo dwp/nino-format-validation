@@ -1,11 +1,11 @@
-#Introduction
+# Introduction
 
 I'm really glad you're reading this, because it means that the effort of making this code open has been worthwhile.  We have a couple of points that you'll need to be aware of:
 
 * If you find a security issue, please don't raise a request.  We’d rather you let us know directly by detailing the issue and emailing it to us at [SecureComms](mailto:secure.communicationsproject@dwp.gsi.gov.uk).  We guarantee to take a look.
 * When wishing to raise a pull request we would be grateful if you could let us know what has changed and why the change is required.
 
-##Submitting changes
+## Submitting changes
 
 Please send a GitHub Pull request to [SecureComms](mailto:secure.communicationsproject@dwp.gsi.gov.uk?Subject=Pull%20Request) with a clear list of what you've done (read more about [pull requests](https://help.github.com/articles/about-pull-requests/)).  When you send a pull request, we’d really appreciate it if you could include examples and use cases; we can always use more test coverage.
   
@@ -13,13 +13,13 @@ Please follow our coding conventions (below), make sure all of your commits are 
 
     git commit -m "A summary of the commit, what’s changed and the impact."
 
-##Coding conventions
+## Coding conventions
 
 Start reading our code and you'll get the hang of it.  We use [SonarLint](http://www.sonarlint.org/intellij/) & [Checkmarx](https://checkmarx.atlassian.net/wiki/display/KC/CxSAST+IntelliJ+Plugin) for immediate code quality and vulnerability review and our IDE is [IntelliJ](https://www.jetbrains.com/idea/).  All code follows the standard out-of-the-box code formatting rules.
 
 This is open source software.  Consider the people who will read your code and make it look nice for them. Remember your code will be in the public domain and we don’t just want your code to be efficient, we’d like it to be elegant too.
 
-##Testing
+## Testing
 
 All good (and responsible) coding comes with a complete set of unit tests and thorough coverage.  
 
@@ -29,7 +29,7 @@ We accept that you can't write for tests you can't see but if you're going to co
 
 We're more than happy to look at any suggestions; a different perspective can be wholly refreshing!
 
-##Communication
+## Communication
 
 Once we get a request from you we'll firstly acknowledge receipt.
 
