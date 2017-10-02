@@ -13,7 +13,7 @@ For example:
 will return true because AA370773A is in a valid format.
 
 
-####Project inclusion
+#### Project inclusion
 
 properties entry in pom
 
@@ -45,7 +45,7 @@ dependency reference
     </dependency>
     
 
-####Example of use
+#### Example of use
 
     import gov.dwp.utilities.fomatvalidation.nino;
 
