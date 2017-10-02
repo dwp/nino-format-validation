@@ -4,11 +4,11 @@ This class performs validation of a National Insurance Number (Nino) format. It 
 
 The class includes the ability to discover the day of week on which various social security benefits are payable.
 
-The class has a static method to validate user input, or it can be used dynamically to query the postcode itself.
+The class has a static method to validate user input, or it can be used dynamically to query the nino itself.
 
 For example: 
 
-`NinoValidator::validateNINO("AA370773A");`
+`NinoValidator.validateNINO("AA370773A");`
 
 will return true because AA370773A is in a valid format.
 
