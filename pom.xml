@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>gov.dwp.software-engineering.formatvalidation</groupId>
-    <artifactId>nino</artifactId>
-    <version>1.0</version>
+    <groupId>uk.gov.dwp.regex</groupId>
+    <artifactId>nino-validation</artifactId>
+    <version>1.1.0</version>
 
     <dependencies>
         <dependency>

@@ -1,4 +1,4 @@
-package gov.dwp.utilities.formatvalidation;
+package uk.gov.dwp.regex;
 
 public class InvalidNinoException extends Exception {
     public InvalidNinoException(String message) {

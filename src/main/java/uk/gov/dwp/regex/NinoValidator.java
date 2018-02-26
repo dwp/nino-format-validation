@@ -1,4 +1,4 @@
-package gov.dwp.utilities.formatvalidation;
+package uk.gov.dwp.regex;
 
 import java.time.DayOfWeek;
 import java.util.Locale;
@@ -8,8 +8,8 @@ import static java.lang.Integer.parseInt;
 public class NinoValidator {
     private static final String NINO_REGEX = "(^(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)[A-Z&&[^DFIQUV]][A-Z&&[^DFIOQUV]][0-9]{6}[ABCD ]?$)";
     private static final String NINO_ERROR_MESSAGE = "Nino Validation Failed";
-    private String ninoBody;
     private String ninoSuffix;
+    private String ninoBody;
 
     public NinoValidator(String ninoBody, String ninoSuffix) {
         this.ninoBody = ninoBody;
@@ -17,7 +17,7 @@ public class NinoValidator {
     }
 
     /**
-     * Calls setNino in order to maintain validation. If the validation fails throws an gov.dwp.utilities.formatvalidation.InvalidNinoException.
+     * Calls setNino in order to maintain validation. If the validation fails throws an InvalidNinoException.
      *
      * @param inputNino data number input to use
      * @throws InvalidNinoException if the inputNino is not of a valid format
@@ -52,15 +52,11 @@ public class NinoValidator {
      * @throws InvalidNinoException if Nino is not a valid format
      */
     public static String getFormNino(String inputNino) throws InvalidNinoException {
-        String returnString = inputNino;
-        if ((null != inputNino) && (!inputNino.isEmpty())) {
-            if (validateNINO(inputNino)) {
-                returnString = reformatInput(inputNino);
-            } else {
-                throw new InvalidNinoException(NINO_ERROR_MESSAGE);
-            }
+        if ((null != inputNino) && (!inputNino.isEmpty()) && (!validateNINO(inputNino))) {
+            throw new InvalidNinoException(NINO_ERROR_MESSAGE);
         }
-        return returnString;
+
+        return reformatInput(inputNino);
     }
 
     /**
@@ -76,10 +72,7 @@ public class NinoValidator {
      * @return String reformatted input (stripped spaces and changed to uppercase)
      */
     private static String reformatInput(String inputNino) {
-        if (null != inputNino) {
-            return inputNino.replaceAll("[ ]", "").toUpperCase(Locale.ROOT);
-        }
-        return null;
+        return null != inputNino ? inputNino.replaceAll("[ ]", "").toUpperCase(Locale.ROOT) : null;
     }
 
     /**

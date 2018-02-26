@@ -1,12 +1,16 @@
-package gov.dwp.utilities.formatvalidation;
+package uk.gov.dwp.regex;
 
 import org.junit.Test;
 
 import java.time.DayOfWeek;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 
 public class NinoValidatorTest {
@@ -20,8 +24,6 @@ public class NinoValidatorTest {
     private static final String TEST_INPUT_SPACES = TEST_BODY_SPACES + " A";
     private static final String TEST_INVALID_NINO_BODY = "12345678";
     private static final String TEST_INVALID_NINO_SUFFIX = "E";
-
-    private NinoValidator nino = new NinoValidator(TEST_INPUT);
 
     public NinoValidatorTest() throws InvalidNinoException {
     }
@@ -39,11 +41,13 @@ public class NinoValidatorTest {
 
     @Test
     public void validateGetNinoBody() throws Exception {
+        NinoValidator nino = new NinoValidator(TEST_INPUT);
         assertEquals(TEST_BODY, nino.getNinoBody());
     }
 
     @Test
     public void validateGetNinoSuffix() throws Exception {
+        NinoValidator nino = new NinoValidator(TEST_INPUT);
         assertEquals(TEST_SUFFIX, nino.getNinoSuffix());
     }
 
@@ -78,19 +82,21 @@ public class NinoValidatorTest {
     }
 
     @Test
-    public void validateSetNinoGivesTrueWhenNinoContainsSpaces() {
-        assertTrue(nino.setNino(TEST_INPUT_SPACES));
+    public void validateSetNinoGivesTrueWhenNinoContainsSpaces() throws InvalidNinoException {
+        NinoValidator nino = new NinoValidator(TEST_INPUT_SPACES);
+        assertTrue(nino.validateThis());
     }
 
     @Test
-    public void validateSetNinoGivesTrueWhenNinoContainsSpacesWithNoSuffix() {
-        assertTrue(nino.setNino(TEST_BODY_LOWER_SPACES));
+    public void validateSetNinoGivesTrueWhenNinoContainsSpacesWithNoSuffix() throws InvalidNinoException {
+        NinoValidator nino = new NinoValidator(TEST_BODY_LOWER_SPACES);
+        assertTrue(nino.validateThis());
     }
 
     @Test
     public void validateValidateThisGivesTrueWhenNinoContainsValidData() {
-        NinoValidator thisNino = new NinoValidator(TEST_BODY, TEST_SUFFIX);
-        assertTrue(thisNino.validateThis());
+        NinoValidator nino = new NinoValidator(TEST_BODY, TEST_SUFFIX);
+        assertTrue(nino.validateThis());
     }
 
     @Test
@@ -99,7 +105,17 @@ public class NinoValidatorTest {
     }
 
     @Test
-    public void validateSetNinoWhenGivenNull() {
+    public void validateSetNinoWhenGivenNull() throws InvalidNinoException {
+        NinoValidator nino = new NinoValidator(TEST_INPUT);
+
+        try {
+            nino = new NinoValidator(null);
+            fail("should throw an error");
+
+        } catch (InvalidNinoException e) {
+            assertThat("should fail validation", e.getMessage(), is(equalTo("Nino Validation Failed")));
+        }
+
         assertFalse(nino.setNino(null));
     }
 
@@ -110,7 +126,7 @@ public class NinoValidatorTest {
     }
 
     @Test
-    public void validateReturnDayOfWeekGivesThursdayWhenNinoIsValidAndHasLessThanTwentyAsLastNumbers() throws InvalidNinoException {
+    public void validateReturnDayOfWeekGivesThursdayWhenNinoIsValidWithThursdaysLastTwoDigits_60To79() throws InvalidNinoException {
         assertEquals(DayOfWeek.THURSDAY, NinoValidator.returnDayOfWeek(TEST_BODY));
     }
 
