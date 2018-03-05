@@ -1,4 +1,5 @@
 # NinoValidator
+[![Build Status](https://travis-ci.org/dwp/nino-format-validation.svg?branch=master)](https://travis-ci.org/dwp/nino-format-validation) [![Known Vulnerabilities](https://snyk.io/test/github/dwp/nino-format-validation/badge.svg)](https://snyk.io/test/github/dwp/nino-format-validation)
 
 This class performs validation of a National Insurance Number (Nino) format. It uses regex to do this. There is no validation that the nino itself is valid. There is no data lookup functionality.
 
