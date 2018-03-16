@@ -8,11 +8,49 @@
     <artifactId>nino-validation</artifactId>
     <version>1.1.0</version>
 
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>Encapsulated utility to validate and extract various markers from a National-Insurance-Number (NINO)</description>
+    <url>https://github.com/dwp/nino-format-validation</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <distribution>repo</distribution>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Andrew Valentine</name>
+            <organization>DWP</organization>
+            <email>andrew.valentine@dwp.gsi.gov.uk</email>
+            <organizationUrl>http://www.gov.uk/dwp</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/dwp/nino-format-validation.git</connection>
+        <developerConnection>scm:git:ssh://github.com:dwp/nino-format-validation.git</developerConnection>
+        <url>https://github.com/dwp/nino-format-validation</url>
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <mvn-javadoc.version>2.10.4</mvn-javadoc.version>
+        <mvn-source.version>3.0.1</mvn-source.version>
+        <mvn-gpg.version>1.6</mvn-gpg.version>
+        <owasp.version>1.4.5</owasp.version>
+        <junit.version>4.12</junit.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
         </dependency>
     </dependencies>
 
@@ -27,20 +65,12 @@
                     <include>CONTRIBUTING.md</include>
                 </includes>
             </resource>
-            <resource>
-                <directory>${basedir}/src/main/properties</directory>
-                <targetPath>${basedir}/target/properties</targetPath>
-                <filtering>false</filtering>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
         </resources>
         <plugins>
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>1.4.5</version>
+                <version>${owasp.version}</version>
                 <configuration>
                     <cveValidForHours>12</cveValidForHours>
                     <failBuildOnCVSS>4</failBuildOnCVSS>
@@ -56,7 +86,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.4</version>
+                <version>${mvn-javadoc.version}</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -68,23 +98,27 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.2</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>${mvn-source.version}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
                         <goals>
                             <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>${mvn-gpg.version}</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
                         </goals>
                     </execution>
                 </executions>
