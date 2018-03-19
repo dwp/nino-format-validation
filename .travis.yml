@@ -13,4 +13,4 @@ jobs:
     - stage: unit-test
       script: mvn clean test
     - stage: owasp-check
-      script: mvn clean verify -Dmaven.test.skip=true
+      script: mvn clean verify -Dmaven.test.skip=true -Dgpg.skip=true
