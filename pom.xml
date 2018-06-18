@@ -6,7 +6,7 @@
 
     <groupId>uk.gov.dwp.regex</groupId>
     <artifactId>nino-validation</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Encapsulated utility to validate and extract various markers from a National-Insurance-Number (NINO)</description>
@@ -27,6 +27,12 @@
             <email>andrew.valentine@dwp.gsi.gov.uk</email>
             <organizationUrl>http://www.gov.uk/dwp</organizationUrl>
         </developer>
+        <developer>
+            <name>Matthew Ball</name>
+            <organization>DWP</organization>
+            <email>matthew.ball@dwp.gsi.gov.uk</email>
+            <organizationUrl>http://www.gov.uk/dwp</organizationUrl>
+        </developer>
     </developers>
 
     <scm>
@@ -42,7 +48,7 @@
         <mvn-javadoc.version>2.10.4</mvn-javadoc.version>
         <mvn-source.version>3.0.1</mvn-source.version>
         <mvn-gpg.version>1.6</mvn-gpg.version>
-        <owasp.version>1.4.5</owasp.version>
+        <owasp.version>3.1.2</owasp.version>
         <junit.version>4.12</junit.version>
     </properties>
 

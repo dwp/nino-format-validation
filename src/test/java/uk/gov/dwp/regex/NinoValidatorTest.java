@@ -14,24 +14,24 @@ import static org.junit.Assert.fail;
 
 
 public class NinoValidatorTest {
-    private static final String TEST_BODY = "AA370773";
-    private static final String TEST_SUFFIX = "A";
-    private static final String TEST_INPUT = TEST_BODY + TEST_SUFFIX;
+    private static final String TEST_BODY_UPPER = "AA370773";
+    private static final String TEST_SUFFIX_UPPER = "A";
+    private static final String TEST_BODY_LOWER = "aa370773";
+    private static final String TEST_SUFFIX_LOWER = "a";
+    private static final String TEST_INPUT_UPPER = TEST_BODY_UPPER + TEST_SUFFIX_UPPER;
+    private static final String TEST_INPUT_LOWER = TEST_BODY_LOWER + TEST_SUFFIX_LOWER;
+    private static final String TEST_BODY_UPPER_SPACES = "AA 37 07 73";
+    private static final String TEST_INPUT_UPPER_SPACES = TEST_BODY_UPPER_SPACES + " A";
     private static final String TEST_BODY_LOWER_SPACES = "aa 37 07 73";
-    private static final String TEST_INPUT_LOWER = "aa370773a";
-    private static final String TEST_INPUT_SUFFIX_SPACE = "AA370773 ";
-    private static final String TEST_BODY_SPACES = "AA 37 07 73";
-    private static final String TEST_INPUT_SPACES = TEST_BODY_SPACES + " A";
+    private static final String TEST_INPUT_LOWER_SPACES = TEST_BODY_LOWER_SPACES + " a";
+    private static final String TEST_INPUT_UPPER_SUFFIX_SPACE = TEST_BODY_UPPER + " ";
     private static final String TEST_INVALID_NINO_BODY = "12345678";
     private static final String TEST_INVALID_NINO_SUFFIX = "E";
 
-    public NinoValidatorTest() throws InvalidNinoException {
-    }
-
     @Test
     public void validateConstructorStringInput() throws Exception {
-        NinoValidator thisNino = new NinoValidator(TEST_INPUT);
-        assertEquals(TEST_BODY, thisNino.getNinoBody());
+        NinoValidator thisNino = new NinoValidator(TEST_INPUT_UPPER);
+        assertEquals(TEST_BODY_UPPER, thisNino.getNinoBody());
     }
 
     @Test(expected = InvalidNinoException.class)
@@ -41,14 +41,14 @@ public class NinoValidatorTest {
 
     @Test
     public void validateGetNinoBody() throws Exception {
-        NinoValidator nino = new NinoValidator(TEST_INPUT);
-        assertEquals(TEST_BODY, nino.getNinoBody());
+        NinoValidator nino = new NinoValidator(TEST_INPUT_UPPER);
+        assertEquals(TEST_BODY_UPPER, nino.getNinoBody());
     }
 
     @Test
     public void validateGetNinoSuffix() throws Exception {
-        NinoValidator nino = new NinoValidator(TEST_INPUT);
-        assertEquals(TEST_SUFFIX, nino.getNinoSuffix());
+        NinoValidator nino = new NinoValidator(TEST_INPUT_UPPER);
+        assertEquals(TEST_SUFFIX_UPPER, nino.getNinoSuffix());
     }
 
     @Test
@@ -68,7 +68,7 @@ public class NinoValidatorTest {
 
     @Test
     public void validateNinoGivesTrueWhenSuffixIsA_B_C_D_Space() {
-        assertTrue(NinoValidator.validateNINO(TEST_INPUT_SUFFIX_SPACE));
+        assertTrue(NinoValidator.validateNINO(TEST_INPUT_UPPER_SUFFIX_SPACE));
     }
 
     @Test
@@ -78,12 +78,12 @@ public class NinoValidatorTest {
 
     @Test
     public void validateNinoGivesTrueWhenInputIncludesSpaces() {
-        assertTrue(NinoValidator.validateNINO(TEST_INPUT_SPACES));
+        assertTrue(NinoValidator.validateNINO(TEST_INPUT_UPPER_SPACES));
     }
 
     @Test
     public void validateSetNinoGivesTrueWhenNinoContainsSpaces() throws InvalidNinoException {
-        NinoValidator nino = new NinoValidator(TEST_INPUT_SPACES);
+        NinoValidator nino = new NinoValidator(TEST_INPUT_UPPER_SPACES);
         assertTrue(nino.validateThis());
     }
 
@@ -95,7 +95,7 @@ public class NinoValidatorTest {
 
     @Test
     public void validateValidateThisGivesTrueWhenNinoContainsValidData() {
-        NinoValidator nino = new NinoValidator(TEST_BODY, TEST_SUFFIX);
+        NinoValidator nino = new NinoValidator(TEST_BODY_UPPER, TEST_SUFFIX_UPPER);
         assertTrue(nino.validateThis());
     }
 
@@ -105,8 +105,80 @@ public class NinoValidatorTest {
     }
 
     @Test
+    public void validateStrictNinoWhenNinoIsValid() {
+        assertTrue(NinoValidator.validateStrictNINO(TEST_INPUT_UPPER));
+    }
+
+    @Test
+    public void validateStrictNinoIsFalseWhenNinoIsLowerAndHasSpaces() {
+        assertFalse(NinoValidator.validateStrictNINO(TEST_INPUT_LOWER_SPACES));
+    }
+
+    @Test
+    public void validateStrictNinoIsFalseWhenNinoHasNoSuffix() {
+        assertFalse(NinoValidator.validateStrictNINO(TEST_BODY_UPPER));
+    }
+
+    @Test
+    public void validateStrictNinoIsFalseWhenNinoIsUpperAndHasSpaces() {
+        assertFalse(NinoValidator.validateStrictNINO(TEST_BODY_UPPER_SPACES));
+    }
+
+    @Test
+    public void validateStrictNinoGivesFalseIfTheFirstLetterIsD_F_I_Q_U_V() {
+        assertFalse(NinoValidator.validateStrictNINO("DS123456A"));
+    }
+
+    @Test
+    public void validateStrictNinoGivesFalseIfTheSecondLetterIsD_F_I_O_Q_U_V() {
+        assertFalse(NinoValidator.validateStrictNINO("AO123456A"));
+    }
+
+    @Test
+    public void validateStrictNinoGivesFalseIfTheFirstTwoLettersAreBG_GB_NK_KN_TN_NT_ZZ() {
+        assertFalse(NinoValidator.validateStrictNINO("ZZ123456A"));
+    }
+
+    @Test
+    public void validateStrictNinoGivesTrueWhenSuffixIsA_B_C_D_Space() {
+        assertTrue(NinoValidator.validateStrictNINO(TEST_INPUT_UPPER_SUFFIX_SPACE));
+    }
+
+    @Test
+    public void validateStrictNinoGivesTrueWhenLettersAreLowercase() {
+        assertTrue(NinoValidator.validateStrictNINO(TEST_INPUT_LOWER));
+    }
+
+    @Test
+    public void validateStrictNinoGivesFalseWhenInputIncludesSpaces() {
+        assertFalse(NinoValidator.validateStrictNINO(TEST_INPUT_UPPER_SPACES));
+    }
+
+    @Test
+    public void validateStrictNinoGivesFalseWhenInputHasMultipleSpaceSuffixes() {
+        assertFalse(NinoValidator.validateStrictNINO(TEST_INPUT_UPPER_SUFFIX_SPACE + " "));
+    }
+
+    @Test
+    public void validateStrictValidateNinoWhenGivenNull() {
+        assertFalse(NinoValidator.validateStrictNINO(null));
+    }
+
+    @Test
+    public void validateValidateThisStrictGivesTrueWhenInputIsValid() throws InvalidNinoException {
+        NinoValidator ninoValidator = new NinoValidator(TEST_INPUT_UPPER);
+        assertTrue(ninoValidator.validateThisStrict());
+    }
+
+    @Test
+    public void validateValidateThisStrictGivesFalseWhenInputContainsNoSuffix() throws InvalidNinoException {
+        NinoValidator ninoValidator = new NinoValidator(TEST_BODY_UPPER);
+        assertFalse(ninoValidator.validateThisStrict());
+    }
+
+    @Test
     public void validateSetNinoWhenGivenNull() throws InvalidNinoException {
-        NinoValidator nino = new NinoValidator(TEST_INPUT);
+        NinoValidator nino = new NinoValidator(TEST_INPUT_UPPER);
 
         try {
             nino = new NinoValidator(null);
@@ -121,13 +193,13 @@ public class NinoValidatorTest {
 
     @Test
     public void validateValidateThisGivesFalseWhenNinoContainsInvalidData() {
-        NinoValidator thisNino = new NinoValidator(TEST_INVALID_NINO_BODY, TEST_SUFFIX);
+        NinoValidator thisNino = new NinoValidator(TEST_INVALID_NINO_BODY, TEST_SUFFIX_UPPER);
         assertFalse(thisNino.validateThis());
     }
 
     @Test
     public void validateReturnDayOfWeekGivesThursdayWhenNinoIsValidWithThursdaysLastTwoDigits_60To79() throws InvalidNinoException {
-        assertEquals(DayOfWeek.THURSDAY, NinoValidator.returnDayOfWeek(TEST_BODY));
+        assertEquals(DayOfWeek.THURSDAY, NinoValidator.returnDayOfWeek(TEST_BODY_UPPER));
     }
 
     @Test(expected = InvalidNinoException.class)
@@ -137,23 +209,44 @@ public class NinoValidatorTest {
 
     @Test(expected = InvalidNinoException.class)
     public void validateReturnThisDayOfWeekThrowsErrorWhenNinoIsInvalid() throws InvalidNinoException {
-        NinoValidator localNino = new NinoValidator(TEST_INVALID_NINO_BODY, TEST_SUFFIX);
+        NinoValidator localNino = new NinoValidator(TEST_INVALID_NINO_BODY, TEST_SUFFIX_UPPER);
         localNino.returnThisDayOfWeek();
     }
 
     @Test
     public void validateGetFormNinoFromLowercase() throws InvalidNinoException {
-        assertEquals(TEST_INPUT, NinoValidator.getFormNino(TEST_INPUT_LOWER));
+        assertEquals(TEST_INPUT_UPPER, NinoValidator.getFormNino(TEST_INPUT_LOWER));
     }
 
     @Test
     public void validateGetFormNinoFromSpaces() throws InvalidNinoException {
-        assertEquals(TEST_INPUT, NinoValidator.getFormNino(TEST_INPUT_SPACES));
+        assertEquals(TEST_INPUT_UPPER, NinoValidator.getFormNino(TEST_INPUT_UPPER_SPACES));
+    }
+
+    @Test
+    public void validateGetStrictFormNinoFromLowercaseAndSpaces() throws InvalidNinoException {
+        assertEquals(TEST_INPUT_UPPER, NinoValidator.getStrictFormNino(TEST_INPUT_LOWER_SPACES));
+    }
+
+    @Test
+    public void validateGetStrictFormNinoFromLowercaseWithNoSuffix() throws InvalidNinoException {
+        assertEquals(TEST_INPUT_UPPER_SUFFIX_SPACE, NinoValidator.getStrictFormNino(TEST_BODY_UPPER));
+    }
+
+    @Test
+    public void validateGetStrictFormNinoFromUppercaseAndSpaces() throws InvalidNinoException {
+        assertEquals(TEST_INPUT_UPPER, NinoValidator.getStrictFormNino(TEST_INPUT_UPPER_SPACES));
     }
 
     @Test(expected = InvalidNinoException.class)
     public void validateGetFormNinoFailsWithInvalidNino() throws InvalidNinoException {
-        NinoValidator.getFormNino(TEST_BODY + TEST_INVALID_NINO_SUFFIX);
+        NinoValidator.getFormNino(TEST_BODY_UPPER + TEST_INVALID_NINO_SUFFIX);
+        throw new AssertionError("Should never get here as invalid nino should cause error to be thrown");
+    }
+
+    @Test(expected = InvalidNinoException.class)
+    public void validateGetStrictFormNinoFailsWithInvalidNino() throws InvalidNinoException {
+        NinoValidator.getStrictFormNino(TEST_BODY_UPPER + TEST_INVALID_NINO_SUFFIX);
         throw new AssertionError("Should never get here as invalid nino should cause error to be thrown");
     }
 }
