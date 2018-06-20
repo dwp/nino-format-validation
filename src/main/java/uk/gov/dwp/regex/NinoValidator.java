@@ -68,7 +68,8 @@ public class NinoValidator {
      * <p>False: Nino is not valid
      */
     public static boolean validateStrictNINO(String ninoInput) {
-        return (null != ninoInput) && (ninoInput.length() == 9) && reformatInput(ninoInput).matches(NINO_REGEX);
+        return (null != ninoInput) && (ninoInput.length() == 9)
+                && ninoInput.toUpperCase(Locale.ROOT).matches(NINO_REGEX);
     }
 
     /**

@@ -1,9 +1,5 @@
 package uk.gov.dwp.regex;
 
-import org.junit.Test;
-
-import java.time.DayOfWeek;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
@@ -11,6 +7,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
+import java.time.DayOfWeek;
+import org.junit.Test;
 
 
 public class NinoValidatorTest {
@@ -27,6 +26,7 @@ public class NinoValidatorTest {
     private static final String TEST_INPUT_UPPER_SUFFIX_SPACE = TEST_BODY_UPPER + " ";
     private static final String TEST_INVALID_NINO_BODY = "12345678";
     private static final String TEST_INVALID_NINO_SUFFIX = "E";
+    private static final String TEST_INPUT_ALMOST_CORRECT = "AB 123456";
 
     @Test
     public void validateConstructorStringInput() throws Exception {
@@ -79,6 +79,11 @@ public class NinoValidatorTest {
     @Test
     public void validateNinoGivesTrueWhenInputIncludesSpaces() {
         assertTrue(NinoValidator.validateNINO(TEST_INPUT_UPPER_SPACES));
+    }
+
+    @Test
+    public void validateNinoGivesTrueWhenInputStructuredArbitrarily() {
+        assertTrue(NinoValidator.validateNINO(TEST_INPUT_ALMOST_CORRECT));
     }
 
     @Test
@@ -157,6 +162,11 @@ public class NinoValidatorTest {
     @Test
     public void validateStrictNinoGivesFalseWhenInputHasMultipleSpaceSuffixes() {
         assertFalse(NinoValidator.validateStrictNINO(TEST_INPUT_UPPER_SUFFIX_SPACE + " "));
+    }
+
+    @Test
+    public void validateStrictNinoGivesFalseWhenInputIsStructuredIncorrectly() {
+        assertFalse(NinoValidator.validateStrictNINO(TEST_INPUT_ALMOST_CORRECT));
     }
 
     @Test
