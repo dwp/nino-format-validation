@@ -26,7 +26,7 @@ public class NinoValidatorTest {
     private static final String TEST_INPUT_UPPER_SUFFIX_SPACE = TEST_BODY_UPPER + " ";
     private static final String TEST_INVALID_NINO_BODY = "12345678";
     private static final String TEST_INVALID_NINO_SUFFIX = "E";
-    private static final String TEST_INPUT_ALMOST_CORRECT = "AB 123456";
+    private static final String TEST_INPUT_ALMOST_CORRECT = "AA 370773";
 
     @Test
     public void validateConstructorStringInput() throws Exception {
@@ -53,17 +53,17 @@ public class NinoValidatorTest {
 
     @Test
     public void validateNinoGivesFalseIfTheFirstLetterIsD_F_I_Q_U_V() {
-        assertFalse(NinoValidator.validateNINO("DS123456A"));
+        assertFalse(NinoValidator.validateNINO("DS370773A"));
     }
 
     @Test
     public void validateNinoGivesFalseIfTheSecondLetterIsD_F_I_O_Q_U_V() {
-        assertFalse(NinoValidator.validateNINO("AO123456A"));
+        assertFalse(NinoValidator.validateNINO("AO370773A"));
     }
 
     @Test
     public void validateNinoGivesFalseIfTheFirstTwoLettersAreBG_GB_NK_KN_TN_NT_ZZ() {
-        assertFalse(NinoValidator.validateNINO("ZZ123456A"));
+        assertFalse(NinoValidator.validateNINO("ZZ370773A"));
     }
 
     @Test
@@ -131,17 +131,17 @@ public class NinoValidatorTest {
 
     @Test
     public void validateStrictNinoGivesFalseIfTheFirstLetterIsD_F_I_Q_U_V() {
-        assertFalse(NinoValidator.validateStrictNINO("DS123456A"));
+        assertFalse(NinoValidator.validateStrictNINO("DS370773A"));
     }
 
     @Test
     public void validateStrictNinoGivesFalseIfTheSecondLetterIsD_F_I_O_Q_U_V() {
-        assertFalse(NinoValidator.validateStrictNINO("AO123456A"));
+        assertFalse(NinoValidator.validateStrictNINO("AO370773A"));
     }
 
     @Test
     public void validateStrictNinoGivesFalseIfTheFirstTwoLettersAreBG_GB_NK_KN_TN_NT_ZZ() {
-        assertFalse(NinoValidator.validateStrictNINO("ZZ123456A"));
+        assertFalse(NinoValidator.validateStrictNINO("ZZ370773A"));
     }
 
     @Test

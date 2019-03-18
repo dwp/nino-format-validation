@@ -23,9 +23,9 @@ must follow the criteria set within Corporate Data Standards reference CV0013 wh
    the reverse of each combination, so BG, KN, and NT are also not valid)
 
 A 'loosely valid' nino, on the other hand, can be 8, 9, 11, or 13 characters long, where the nino
-can contain spaces and the last character can be optionally blank (i.e., `AB123456A`,
-`AB 12 34 56 A`, `AB123456`, `AB 12 34 56`, and <code>AB123456&nbsp;</code> are all loosely valid,
-but only `AB123456A` and <code>AB123456&nbsp;</code> are strictly valid).
+can contain spaces and the last character can be optionally blank (i.e., `AA370773`,
+`AA 37 07 73 A`, `AA370773`, `AA 37 07 73`, and <code>AA370773&nbsp;</code> are all loosely valid,
+but only `AA370773A` and <code>AA370773&nbsp;</code> are strictly valid).
 
 For example the following will return true because `AA370773` is a 'loosely valid' nino.
 
