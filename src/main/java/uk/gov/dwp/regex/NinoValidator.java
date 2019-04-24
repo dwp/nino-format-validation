@@ -7,7 +7,7 @@ import java.util.Optional;
 import static java.lang.Integer.parseInt;
 
 public class NinoValidator {
-    private static final String NINO_REGEX = "(^(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)[A-Z&&[^DFIQUV]][A-Z&&[^DFIOQUV]][0-9]{6}[ABCD ]?$)";
+    private static final String NINO_REGEX = "(^(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)[A-Z&&[^DFIQUV]][A-Z&&[^DFIOQUV]][0-9]{6}[A-D]$)";
     private static final String NINO_ERROR_MESSAGE = "Nino Validation Failed";
     private String ninoSuffix;
     private String ninoBody;
@@ -32,7 +32,7 @@ public class NinoValidator {
     /**
      * Validates the input against Nino formatting. Checks carried out include:
      * input is not null
-     * input is not less than 7 characters
+     * input is not less than 9 characters
      * input matches REGEX nino format
      * <p>
      * Called by static functions and constructor(String)
@@ -42,7 +42,7 @@ public class NinoValidator {
      * <p>False: Nino is not valid
      */
     public static boolean validateNINO(String ninoInput) {
-        return (null != ninoInput) && (ninoInput.length() >= 8) && reformatInput(ninoInput).matches(NINO_REGEX);
+        return (null != ninoInput) && (ninoInput.length() >= 9) && reformatInput(ninoInput).matches(NINO_REGEX);
     }
 
     /**
@@ -164,7 +164,7 @@ public class NinoValidator {
         boolean returnValue = false;
         String reformattedInput = reformatInput(input);
 
-        if ((null != reformattedInput) && (validateNINO(reformattedInput))) {
+        if (validateNINO(reformattedInput)) {
             if (reformattedInput.length() > 8) {
                 ninoSuffix = reformattedInput.substring(8, 9);
             } else {

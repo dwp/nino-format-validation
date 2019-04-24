@@ -16,24 +16,25 @@ must follow the criteria set within Corporate Data Standards reference CV0013 wh
  + The NI Number must be 9 characters long with no spaces
  + The first two characters must be alphabetical
  + Characters three to eight must be numeric
- + Character nine must be A, B, C, D, or a space
+ + Character nine must be A, B, C, D, or a space **
  + The first character must not be D, F, I, Q, U, or V
  + The second character must not be D, F, I, O, Q, U, or V
  + The first two characters must not be combinations of GB, NK, TN, or ZZ (this includes
    the reverse of each combination, so BG, KN, and NT are also not valid)
 
-A 'loosely valid' nino, on the other hand, can be 8, 9, 11, or 13 characters long, where the nino
-can contain spaces and the last character can be optionally blank (i.e., `AA370773`,
-`AA 37 07 73 A`, `AA370773`, `AA 37 07 73`, and <code>AA370773&nbsp;</code> are all loosely valid,
-but only `AA370773A` and <code>AA370773&nbsp;</code> are strictly valid).
+** from `1.3.0` onwards the suffix **must** be supplied (ie. cannot be blank) and **must** contain a letter (ie. spaces are not allowed).
+ 
+A 'loosely valid' nino, on the other hand, can be between 9 and 13 characters long, where the nino
+can contain spaces and the last character can be optionally blank (i.e., `AA 37 07 73 A` and `AA370773A` are all loosely valid,
+but only `AA370773A`is strictly valid).
 
-For example the following will return true because `AA370773` is a 'loosely valid' nino.
+For example the following will return true because `AA 37 07 73 A` is a 'loosely valid' nino.
 
-`NinoValidator.validateNINO("AA370773");`
+`NinoValidator.validateNINO("AA 37 07 73 A");`
 
-But the following will return false because `AA370773` is not a 'strictly valid' nino.
+But the following will return false because `AA 37 07 73 A` is not a 'strictly valid' nino.
 
-`NinoValidator.validateStrictNINO("AA370773")`
+`NinoValidator.validateStrictNINO("AA 37 07 73 A")`
 
 #### Project inclusion
 

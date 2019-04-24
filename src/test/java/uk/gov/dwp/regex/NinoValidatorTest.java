@@ -26,7 +26,7 @@ public class NinoValidatorTest {
     private static final String TEST_INPUT_UPPER_SUFFIX_SPACE = TEST_BODY_UPPER + " ";
     private static final String TEST_INVALID_NINO_BODY = "12345678";
     private static final String TEST_INVALID_NINO_SUFFIX = "E";
-    private static final String TEST_INPUT_ALMOST_CORRECT = "AA 370773";
+    private static final String TEST_INPUT_ALMOST_CORRECT = "AA 370773C";
 
     @Test
     public void validateConstructorStringInput() throws Exception {
@@ -67,8 +67,13 @@ public class NinoValidatorTest {
     }
 
     @Test
-    public void validateNinoGivesTrueWhenSuffixIsA_B_C_D_Space() {
-        assertTrue(NinoValidator.validateNINO(TEST_INPUT_UPPER_SUFFIX_SPACE));
+    public void validateNinoGivesTrueWhenSuffixIsA_B_C_D() {
+        assertTrue(NinoValidator.validateNINO(TEST_INPUT_LOWER));
+    }
+
+    @Test
+    public void validateNinoGivesFalseWhenSuffixIsSpace() {
+        assertFalse(NinoValidator.validateNINO(TEST_INPUT_UPPER_SUFFIX_SPACE));
     }
 
     @Test
@@ -92,10 +97,9 @@ public class NinoValidatorTest {
         assertTrue(nino.validateThis());
     }
 
-    @Test
-    public void validateSetNinoGivesTrueWhenNinoContainsSpacesWithNoSuffix() throws InvalidNinoException {
-        NinoValidator nino = new NinoValidator(TEST_BODY_LOWER_SPACES);
-        assertTrue(nino.validateThis());
+    @Test(expected = InvalidNinoException.class)
+    public void validateSetNinoThrowsExceptionWhenNinoContainsSpacesWithNoSuffix() throws InvalidNinoException {
+        new NinoValidator(TEST_BODY_LOWER_SPACES);
     }
 
     @Test
@@ -125,6 +129,11 @@ public class NinoValidatorTest {
     }
 
     @Test
+    public void validateNinoIsFalseWhenNinoHasNoSuffix() {
+        assertFalse(NinoValidator.validateNINO(TEST_BODY_UPPER));
+    }
+
+    @Test
     public void validateStrictNinoIsFalseWhenNinoIsUpperAndHasSpaces() {
         assertFalse(NinoValidator.validateStrictNINO(TEST_BODY_UPPER_SPACES));
     }
@@ -145,8 +154,13 @@ public class NinoValidatorTest {
     }
 
     @Test
-    public void validateStrictNinoGivesTrueWhenSuffixIsA_B_C_D_Space() {
-        assertTrue(NinoValidator.validateStrictNINO(TEST_INPUT_UPPER_SUFFIX_SPACE));
+    public void validateStrictNinoGivesTrueWhenSuffixIsA_B_C_D() {
+        assertTrue(NinoValidator.validateStrictNINO(TEST_INPUT_LOWER));
+    }
+
+    @Test
+    public void validateStrictNinoGivesFalseWhenSuffixIsSpace() {
+        assertFalse(NinoValidator.validateStrictNINO(TEST_INPUT_UPPER_SUFFIX_SPACE));
     }
 
     @Test
@@ -180,10 +194,9 @@ public class NinoValidatorTest {
         assertTrue(ninoValidator.validateThisStrict());
     }
 
-    @Test
-    public void validateValidateThisStrictGivesFalseWhenInputContainsNoSuffix() throws InvalidNinoException {
-        NinoValidator ninoValidator = new NinoValidator(TEST_BODY_UPPER);
-        assertFalse(ninoValidator.validateThisStrict());
+    @Test(expected = InvalidNinoException.class)
+    public void validateThisStrictThrowsExceptionWhenInputContainsNoSuffix() throws InvalidNinoException {
+        new NinoValidator(TEST_BODY_UPPER);
     }
 
     @Test
@@ -209,7 +222,7 @@ public class NinoValidatorTest {
 
     @Test
     public void validateReturnDayOfWeekGivesThursdayWhenNinoIsValidWithThursdaysLastTwoDigits_60To79() throws InvalidNinoException {
-        assertEquals(DayOfWeek.THURSDAY, NinoValidator.returnDayOfWeek(TEST_BODY_UPPER));
+        assertEquals(DayOfWeek.THURSDAY, NinoValidator.returnDayOfWeek(TEST_INPUT_UPPER));
     }
 
     @Test(expected = InvalidNinoException.class)
@@ -236,11 +249,6 @@ public class NinoValidatorTest {
     @Test
     public void validateGetStrictFormNinoFromLowercaseAndSpaces() throws InvalidNinoException {
         assertEquals(TEST_INPUT_UPPER, NinoValidator.getStrictFormNino(TEST_INPUT_LOWER_SPACES));
-    }
-
-    @Test
-    public void validateGetStrictFormNinoFromLowercaseWithNoSuffix() throws InvalidNinoException {
-        assertEquals(TEST_INPUT_UPPER_SUFFIX_SPACE, NinoValidator.getStrictFormNino(TEST_BODY_UPPER));
     }
 
     @Test
