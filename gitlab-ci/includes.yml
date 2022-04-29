@@ -1,0 +1,66 @@
+include:
+    #.pre
+    - project: 'dwp/engineering/pipeline-fragments/credential-check'
+      ref: 2-2-0
+      file: 'ci-include-credential-check.yml'
+    - project: 'dwp/engineering/pipeline-fragments/fragment-version-check'
+      ref: 2-3-0
+      file: 'ci-include-fragment-version-check.yml'
+    - project: 'dwp/engineering/pipeline-fragments/required-fragment-check'
+      ref: 2-6-0
+      file: 'ci-include-required-fragment-check.yml'
+    #update-version
+    - project: 'dwp/engineering/pipeline-fragments/update-semver'
+      ref: 4-3-2
+      file: 'ci-include-update-semver.yml'
+    #code-quality
+    - project: 'dwp/engineering/pipeline-fragments/gitleaks'
+      ref: 2-1-5
+      file: 'ci-include-gitleaks.yml'
+    - project: 'dwp/engineering/pipeline-fragments/shell-check'
+      ref: 3-1-0
+      file: 'ci-include-shell-check.yml'
+    - project: 'dwp/engineering/pipeline-fragments/todo-checker'
+      ref: 2-1-0
+      file: 'ci-include-todo-checker.yml'
+    - project: 'dwp/engineering/pipeline-fragments/maven-checkstyle-lint'
+      ref: 3-2-0
+      file: 'ci-include-maven-checkstyle-lint.yml'
+    #code-test
+    - project: 'dwp/engineering/pipeline-fragments/maven-api-test'
+      ref: 3-3-0
+      file: 'ci-include-maven-api-test.yml'
+    #application-build
+    - project: 'dwp/engineering/pipeline-fragments/maven-api-build'
+      ref: 3-2-0
+      file: 'ci-include-maven-api-build.yml'
+    #code-analysis
+    - project: 'dwp/engineering/pipeline-fragments/maven-api-pitest'
+      ref: 3-2-0
+      file: 'ci-include-maven-api-pitest.yml'
+    - project: 'dwp/engineering/pipeline-fragments/maven-api-spotbugs'
+      ref: 3-1-0
+      file: 'ci-include-maven-api-spotbugs.yml'
+    - project: 'dwp/engineering/pipeline-fragments/sonarqube'
+      ref: 4-3-0
+      file: 'ci-include-sonar-scanner.yml'
+    #nexus-publish
+    - project: 'dwp/engineering/pipeline-fragments/nexus-publish'
+      ref: 2-0-0
+      file: 'ci-include-nexus-publish.yml'
+    #update-project-metadata
+    - project: 'dwp/engineering/pipeline-fragments/create-project-badges'
+      ref: 2-1-0
+      file: 'ci-include-create-project-badges.yml'
+    #open-sourcing
+    - project: 'dwp/engineering/pipeline-fragments/open-source'
+      ref: 2-0-0
+      file: 'ci-include-open-source.yml'
+    #schedule create
+    - project: 'dwp/engineering/pipeline-fragments/schedule-creation'
+      ref: 2-3-0
+      file: 'ci-include-schedule-creation.yml'
+    #repo-gen
+    - project: 'dwp/engineering/pipeline-fragments/apply-repo-config'
+      ref: 1-1-0
+      file: 'ci-include-apply-repo-config.yml'
