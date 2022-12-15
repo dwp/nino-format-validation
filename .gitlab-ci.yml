@@ -4,7 +4,7 @@ variables:
   BUILD_TYPE: MAVEN
   MAVEN_IMAGE: "maven:3-jdk-11"
   MVN_OPTS: "-DLOG_LEVEL=INFO -Dgpg.skip=true"
-  MVN_CLI_OPTS: "-Dhttp.proxyHost=proxy.local.dwpcloud.uk -Dhttp.proxyPort=3128 -Dhttp.nonProxyHosts='localhost|docker|127.0.0.1' -Dhttps.proxyHost=proxy.local.dwpcloud.uk -Dhttps.proxyPort=3128 -Dhttps.nonProxyHosts='localhost|docker|127.0.0.1' --batch-mode"
+  MVN_CLI_OPTS: "--batch-mode"
   GITHUB_REPO_NAME: nino-format-validation #open sourced dependency
   REPO_PATTERN: "V3 CI"
 
